@@ -52,8 +52,8 @@ aapt2 link \
     --auto-add-overlay \
     --min-sdk-version 23 \
     --target-sdk-version 31 \
-    --version-code 1 \
-    --version-name 0.1
+    --version-code 2 \
+    --version-name 0.2
 
 (cd "$DEX" && zip -q "$APKOUT/unsigned.apk" classes.dex)
 
