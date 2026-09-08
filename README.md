@@ -91,7 +91,7 @@ bash build.sh
 ## 项目结构
 
 ```text
-app/src/main/java/com/qqaiassist/
+app/src/main/java/io/github/winkmoon/qqaireplyassist/
   MainActivity.java     # 模块设置主页
   QQAiAssist.java       # Xposed 主逻辑：入口、润色、发送/编辑
 app/src/main/assets/xposed_init

@@ -1,4 +1,4 @@
-package com.qqaiassist;
+package io.github.winkmoon.qqaireplyassist;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -55,7 +55,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 public class QQAiAssist implements IXposedHookLoadPackage {
 
     private static final String TAG = "QQAiAssist";
-    private static final String PREF_PKG = "com.qqaiassist";
+    private static final String PREF_PKG = "io.github.winkmoon.qqaireplyassist";
     private static final String PREF = "config";
 
     private static volatile boolean sEntryShown;
@@ -397,7 +397,7 @@ public class QQAiAssist implements IXposedHookLoadPackage {
     }
 
     private static File hookCacheFile(Activity activity) {
-        return new File(activity.getFilesDir(), "qqaiassist_hook_cache.txt");
+        return new File(activity.getFilesDir(), "qqaireplyassist_hook_cache.txt");
     }
 
     private static boolean hookCacheHit(Activity activity, String version) {
@@ -620,7 +620,7 @@ public class QQAiAssist implements IXposedHookLoadPackage {
                                           String base, String model,
                                           String prompt, int choices)
             throws Exception {
-        File f = new File(activity.getFilesDir(), "qqaiassist_config.txt");
+        File f = new File(activity.getFilesDir(), "qqaireplyassist_config.txt");
         FileOutputStream fos = new FileOutputStream(f);
         String content = "api_key=" + key + "\n"
                 + "base_url=" + base + "\n"
@@ -867,7 +867,7 @@ public class QQAiAssist implements IXposedHookLoadPackage {
     private static Config loadConfig(Context ctx) {
         try {
             // 优先读 QQ 自己 files 目录下的配置（最可靠，不依赖跨 App 权限）
-            File f = new File(ctx.getFilesDir(), "qqaiassist_config.txt");
+            File f = new File(ctx.getFilesDir(), "qqaireplyassist_config.txt");
             if (f.exists()) {
                 Config c = readConfigFile(f);
                 if (c != null && c.apiKey.length() > 0

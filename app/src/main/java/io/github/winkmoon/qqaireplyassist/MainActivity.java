@@ -1,4 +1,4 @@
-package com.qqaiassist;
+package io.github.winkmoon.qqaireplyassist;
 
 import android.app.Activity;
 import android.content.Context;
@@ -168,7 +168,7 @@ public class MainActivity extends Activity {
                     + "model=" + etModel.getText().toString().trim() + "\n"
                     + "prompt=" + etPrompt.getText().toString().trim() + "\n"
                     + "choices=" + parseChoices() + "\n";
-            File tmp = new File(getCacheDir(), "qqaiassist_config.txt");
+            File tmp = new File(getCacheDir(), "qqaireplyassist_config.txt");
             FileOutputStream fos = new FileOutputStream(tmp);
             fos.write(content.getBytes("UTF-8"));
             fos.flush();
@@ -177,9 +177,9 @@ public class MainActivity extends Activity {
                     + "for u in 0 999; do "
                     + "d=/proc/$p/root/data/user/$u/com.tencent.mobileqq/files; "
                     + "[ -d \"$d\" ] && cp " + tmp.getAbsolutePath()
-                    + " $d/qqaiassist_config.txt && "
+                    + " $d/qqaireplyassist_config.txt && "
                     + "chown $(stat -c %u $d):$(stat -c %g $d) "
-                    + "$d/qqaiassist_config.txt && chmod 660 $d/qqaiassist_config.txt; "
+                    + "$d/qqaireplyassist_config.txt && chmod 660 $d/qqaireplyassist_config.txt; "
                     + "done; done";
             String out = runRoot(cmd);
             if (!out.contains("No such") && out.length() < 200) {
