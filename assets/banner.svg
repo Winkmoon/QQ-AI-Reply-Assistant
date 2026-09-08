@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A84FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5E5CE6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="240" fill="url(#bg)" />
+  <circle cx="1080" cy="40" r="90" fill="#FFFFFF" opacity="0.08" />
+  <circle cx="90" cy="210" r="120" fill="#FFFFFF" opacity="0.06" />
+  <text x="80" y="130" font-family="sans-serif" font-size="72" font-weight="bold" fill="#FFFFFF">QQ AI 嘴替</text>
+  <text x="84" y="180" font-family="sans-serif" font-size="30" fill="#EAF2FF">让 AI 替你回话 · 润色 · 换语气 · 一键发送</text>
+  <text x="84" y="214" font-family="sans-serif" font-size="22" fill="#D6E4FF">LSPosed / Xposed · 任意 OpenAI 兼容 API</text>
+</svg>

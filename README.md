@@ -1,4 +1,21 @@
-# QQ AI 嘴替（QQ-AI-Reply-Assistant）
+<p align="center">
+  <img src="assets/banner.svg" width="720" alt="QQ AI 嘴替" />
+</p>
+
+<h1 align="center">QQ AI 嘴替</h1>
+
+<p align="center">
+  <b>不会回？不知道怎么回？想换语气？让 AI 替你嘴。</b>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" /></a>
+  <a href="https://github.com/Winkmoon/QQ-AI-Reply-Assistant/releases"><img alt="Release" src="https://img.shields.io/github/v/release/Winkmoon/QQ-AI-Reply-Assistant" /></a>
+  <img alt="LSPosed" src="https://img.shields.io/badge/LSPosed-module-brightgreen" />
+  <img alt="Xposed" src="https://img.shields.io/badge/Xposed-API%2082-green" />
+  <img alt="Android" src="https://img.shields.io/badge/Android-8%2B-blue" />
+  <img alt="API" src="https://img.shields.io/badge/API-OpenAI%20Compatible-orange" />
+</p>
 
 一个 LSPosed/Xposed 模块，在 QQ 聊天输入框上方提供可拖动的 AI 入口：
 不会说话、不知道该回什么、想换语气（礼貌/雌小鬼/zako/猫娘/阴阳怪气等）都能直接用 AI 生成回复，一键发送或填入输入框。
