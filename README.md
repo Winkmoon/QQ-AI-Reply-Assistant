@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License: CC BY-NC-SA 4.0" src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" /></a>
+  <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
   <a href="https://github.com/Winkmoon/QQ-AI-Reply-Assistant/releases"><img alt="Release" src="https://img.shields.io/github/v/release/Winkmoon/QQ-AI-Reply-Assistant" /></a>
   <img alt="LSPosed" src="https://img.shields.io/badge/LSPosed-module-brightgreen" />
   <img alt="Xposed" src="https://img.shields.io/badge/Xposed-API%2082-green" />
@@ -109,8 +109,8 @@ enable_lsposed.py       # 可选：手动写 LSPosed DB 的脚本（仅调试）
 
 ## License
 
-[CC BY-NC-SA 4.0](LICENSE)
+[GPL-3.0](LICENSE)
 
-- **BY**：使用时必须保留署名
-- **NC**：禁止商用
-- **SA**：衍生作品必须使用相同许可共享，禁止闭源
+- 可学习/修改/再分发
+- 衍生作品必须使用 GPL-3.0 开源共享（禁止闭源）
+- 允许商用，但商用衍生品也必须开源
