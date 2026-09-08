@@ -1,0 +1,15 @@
+# Build outputs
+build/
+*.apk
+
+# Signing
+*.jks
+*.keystore
+
+# IDE
+.idea/
+*.iml
+local.properties
+
+# OS
+.DS_Store
