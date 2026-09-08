@@ -54,4 +54,4 @@ jobs:
           gh release create "$GITHUB_REF_NAME" \
             build/QQAiAssist.apk \
             --title "QQ AI 嘴替 $GITHUB_REF_NAME" \
-            --notes "Automated build from commit $GITHUB_SHA."
+            --generate-notes
