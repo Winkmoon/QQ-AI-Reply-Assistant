@@ -649,27 +649,73 @@ public class QQAiAssist implements IXposedHookLoadPackage {
 
         for (int i = 0; i < results.size(); i++) {
             final String text = results.get(i);
-            Button b = new Button(activity);
-            b.setAllCaps(false);
-            b.setGravity(Gravity.START);
-            b.setText((i + 1) + ". " + text);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showSendEditDialog(activity, qqInput, text);
-                }
-            });
-            box.addView(b);
+            LinearLayout item = makeResultCard(activity,
+                    (i + 1) + ".  " + text,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showSendEditDialog(activity, qqInput, text);
+                        }
+                    });
+            box.addView(item);
         }
 
         ScrollView scroll = new ScrollView(activity);
         scroll.addView(box);
         new AlertDialog.Builder(activity,
                 android.R.style.Theme_DeviceDefault_Light_Dialog_Alert)
-                .setTitle("AI 润色结果")
+                .setTitle("AI 生成结果")
                 .setView(scroll)
                 .setNegativeButton("关闭", null)
                 .show();
+    }
+
+    private static LinearLayout makeResultCard(final Activity activity,
+                                               final String label,
+                                               final View.OnClickListener listener) {
+        LinearLayout item = new LinearLayout(activity);
+        item.setOrientation(LinearLayout.HORIZONTAL);
+        item.setGravity(Gravity.CENTER_VERTICAL);
+        item.setClickable(true);
+        item.setFocusable(true);
+        item.setMinimumHeight(dp(activity, 52));
+        item.setPadding(dp(activity, 14), dp(activity, 10),
+                dp(activity, 14), dp(activity, 10));
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, dp(activity, 4), 0, dp(activity, 4));
+        item.setLayoutParams(lp);
+
+        android.graphics.drawable.GradientDrawable bg =
+                new android.graphics.drawable.GradientDrawable();
+        bg.setColor(Color.parseColor("#F2F3F5"));
+        bg.setCornerRadius(dp(activity, 12));
+        bg.setStroke(dp(activity, 1), Color.parseColor("#E3E6E8"));
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            android.content.res.ColorStateList rippleColor =
+                    android.content.res.ColorStateList.valueOf(
+                            Color.parseColor("#D0D7DE"));
+            android.graphics.drawable.RippleDrawable ripple =
+                    new android.graphics.drawable.RippleDrawable(
+                            rippleColor, bg, null);
+            item.setBackground(ripple);
+        } else {
+            item.setBackground(bg);
+        }
+
+        TextView tv = new TextView(activity);
+        tv.setText(label);
+        tv.setTextSize(15);
+        tv.setTextColor(Color.parseColor("#1C1C1E"));
+        tv.setLineSpacing(dp(activity, 2), 1f);
+        tv.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        item.addView(tv);
+
+        item.setOnClickListener(listener);
+        return item;
     }
 
     private static void showSendEditDialog(final Activity activity,
