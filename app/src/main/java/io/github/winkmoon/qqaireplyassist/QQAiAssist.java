@@ -480,9 +480,19 @@ public class QQAiAssist implements IXposedHookLoadPackage {
                 .setView(box)
                 .setCancelable(true)
                 .setPositiveButton("AI 润色", null)
+                .setNeutralButton("配置 API/模型", null)
                 .setNegativeButton("取消", null)
                 .create();
         dlg.show();
+        dlg.getButton(DialogInterface.BUTTON_NEUTRAL)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // 不关闭当前输入框，配置完可继续润色
+                        showQQSetupDialog(activity, qqInput,
+                                et.getText().toString().trim(), false);
+                    }
+                });
         dlg.getButton(DialogInterface.BUTTON_POSITIVE)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -503,7 +513,7 @@ public class QQAiAssist implements IXposedHookLoadPackage {
                                final String raw) {
         final Config cfg = loadConfig(activity);
         if (cfg == null || cfg.apiKey.length() == 0) {
-            showQQSetupDialog(activity, qqInput, raw);
+            showQQSetupDialog(activity, qqInput, raw, true);
             return;
         }
 
@@ -553,7 +563,10 @@ public class QQAiAssist implements IXposedHookLoadPackage {
 
     private static void showQQSetupDialog(final Activity activity,
                                           final EditText qqInput,
-                                          final String raw) {
+                                          final String raw,
+                                          final boolean retryAfterSave) {
+        Config current = loadConfig(activity);
+
         final LinearLayout box = new LinearLayout(activity);
         box.setOrientation(LinearLayout.VERTICAL);
         box.setPadding(dp(activity, 24), dp(activity, 4),
@@ -563,28 +576,40 @@ public class QQAiAssist implements IXposedHookLoadPackage {
         etKey.setHint("API Key（OpenAI 兼容）");
         etKey.setInputType(InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        if (current != null) {
+            etKey.setText(current.apiKey);
+        }
         box.addView(etKey);
 
         final EditText etBase = new EditText(activity);
         etBase.setHint("API Base URL，例如 https://api.openai.com/v1");
+        if (current != null) {
+            etBase.setText(current.baseUrl);
+        }
         box.addView(etBase);
 
         final EditText etModel = new EditText(activity);
         etModel.setHint("模型，例如 gpt-4o-mini");
+        if (current != null) {
+            etModel.setText(current.model);
+        }
         box.addView(etModel);
 
         final EditText etPrompt = new EditText(activity);
         etPrompt.setHint("提示词（可选）");
         etPrompt.setMinLines(3);
         etPrompt.setGravity(Gravity.TOP);
+        if (current != null && current.prompt != null) {
+            etPrompt.setText(current.prompt);
+        }
         box.addView(etPrompt);
 
         final AlertDialog dlg = new AlertDialog.Builder(activity,
                 android.R.style.Theme_DeviceDefault_Light_Dialog_Alert)
                 .setTitle("QQ 内配置 AI")
-                .setMessage("模块主页配置暂时无法跨 App 读取，请在这里填一次，QQ 会保存到自己的目录。")
+                .setMessage("配置会保存到 QQ 自己的目录；已经存在的 Key 会保留，修改后点保存即可。")
                 .setView(box)
-                .setPositiveButton("保存并重试", null)
+                .setPositiveButton(retryAfterSave ? "保存并重试" : "保存", null)
                 .setNegativeButton("取消", null)
                 .create();
         dlg.show();
@@ -608,7 +633,9 @@ public class QQAiAssist implements IXposedHookLoadPackage {
                                     etPrompt.getText().toString().trim(), 5);
                             dlg.dismiss();
                             toast(activity, "配置已写入 QQ 目录");
-                            callAi(activity, qqInput, raw);
+                            if (retryAfterSave) {
+                                callAi(activity, qqInput, raw);
+                            }
                         } catch (Throwable t) {
                             toast(activity, "写入失败: " + t.getMessage());
                         }
